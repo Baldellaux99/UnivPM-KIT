@@ -1,0 +1,20 @@
+% collect 100 frame errors or 4500000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01,
+% [[1057,571]], 2048 checks, 15 iter, ep0=0.1std::endl% FE 291, total dec. 291\\
+0.08 1\\
+% FE 292, total dec. 292\\
+0.07 1\\
+% FE 288, total dec. 294\\
+0.06 0.979592\\
+% FE 253, total dec. 317\\
+0.05 0.798107\\
+% FE 170, total dec. 618\\
+0.04 0.275081\\
+% FE 103, total dec. 7770\\
+0.03 0.0132561\\
+% FE 103, total dec. 6834\\
+0.03 0.0150717\\
+% FE 101, total dec. 23514\\
+0.028 0.00429531\\
+% FE 101, total dec. 63393\\
+0.026 0.00159324\\

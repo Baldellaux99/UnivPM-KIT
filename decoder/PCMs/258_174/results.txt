@@ -1,0 +1,131 @@
+
+
+check symplectic ok
+% collect 300 frame errors or 60000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 
+% Decoding option: CAMEL 16 paths!
+% [[258,174]], 96 checks, 15 iter, ep0=0.1
+% FE 556, total dec. 556\\
+0.1 1\\
+% FE 552, total dec. 552\\
+0.09 1\\
+% FE 553, total dec. 553\\
+0.08 1\\
+% FE 551, total dec. 553\\
+0.07 0.996383\\
+% FE 546, total dec. 552\\
+0.06 0.98913\\
+% FE 552, total dec. 566\\
+0.05 0.975265\\
+% FE 542, total dec. 600\\
+0.04 0.903333\\
+% FE 496, total dec. 707\\
+0.03 0.701556\\
+% FE 410, total dec. 980\\
+0.02 0.418367\\
+% FE 347, total dec. 2442\\
+0.01 0.142097\\
+% FE 330, total dec. 3301\\
+0.009 0.0999697\\
+% FE 327, total dec. 3503\\
+0.008 0.0933486\\
+% FE 329, total dec. 4196\\
+0.007 0.078408\\
+% FE 324, total dec. 5642\\
+0.006 0.0574264\\
+% FE 319, total dec. 8188\\
+0.005 0.0389595\\
+% FE 312, total dec. 10505\\
+0.004 0.0297001\\
+% FE 308, total dec. 20525\\
+0.003 0.0150061\\
+% FE 310, total dec. 41980\\
+0.002 0.00738447\\
+% FE 305, total dec. 152364\\
+0.001 0.00200179\\
+(base) mandelbaum@insl55:/tmp/mandelbaum/CAMEL> ./build/sim_FER 
+check symplectic ok
+% collect 300 frame errors or 60000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 
+% Decoding option: Flooding BP
+% [[258,174]], 96 checks, 15 iter, ep0=0.1
+% FE 555, total dec. 555\\
+0.1 1\\
+% FE 538, total dec. 538\\
+0.09 1\\
+% FE 543, total dec. 543\\
+0.08 1\\
+% FE 535, total dec. 538\\
+0.07 0.994424\\
+% FE 538, total dec. 540\\
+0.06 0.996296\\
+% FE 540, total dec. 558\\
+0.05 0.967742\\
+% FE 534, total dec. 604\\
+0.04 0.884106\\
+% FE 505, total dec. 721\\
+0.03 0.700416\\
+% FE 427, total dec. 1026\\
+0.02 0.416179\\
+% FE 380, total dec. 2546\\
+0.01 0.149254\\
+% FE 364, total dec. 3018\\
+0.009 0.12061\\
+% FE 355, total dec. 3957\\
+0.008 0.0897144\\
+% FE 341, total dec. 4275\\
+0.007 0.0797661\\
+% FE 351, total dec. 5967\\
+0.006 0.0588235\\
+% FE 321, total dec. 8744\\
+0.005 0.0367109\\
+% FE 328, total dec. 12356\\
+0.004 0.0265458\\
+% FE 320, total dec. 20160\\
+0.003 0.015873\\
+% FE 310, total dec. 40840\\
+0.002 0.0075906\\
+% FE 307, total dec. 174512\\
+0.001 0.00175919\\
+
+
+% Decoding option: CAMEL --> only guessing one column!
+% [[258,174]], 96 checks, 15 iter, ep0=0.1
+% FE 555, total dec. 555\\
+0.1 1\\
+% FE 553, total dec. 553\\
+0.09 1\\
+% FE 555, total dec. 555\\
+0.08 1\\
+% FE 553, total dec. 555\\
+0.07 0.996396\\
+% FE 555, total dec. 559\\
+0.06 0.992844\\
+% FE 546, total dec. 565\\
+0.05 0.966372\\
+% FE 532, total dec. 584\\
+0.04 0.910959\\
+% FE 493, total dec. 677\\
+0.03 0.728213\\
+% FE 416, total dec. 988\\
+0.02 0.421053\\
+% FE 341, total dec. 2476\\
+0.01 0.137722\\
+% FE 329, total dec. 3066\\
+0.009 0.107306\\
+% FE 340, total dec. 3887\\
+0.008 0.0874711\\
+% FE 323, total dec. 4214\\
+0.007 0.0766493\\
+% FE 329, total dec. 5841\\
+0.006 0.056326\\
+% FE 316, total dec. 8315\\
+0.005 0.0380036\\
+% FE 315, total dec. 11720\\
+0.004 0.0268771\\
+% FE 305, total dec. 17068\\
+0.003 0.0178697\\
+% FE 305, total dec. 46234\\
+0.002 0.00659688\\
+% FE 306, total dec. 153928\\
+0.001 0.00198794\\

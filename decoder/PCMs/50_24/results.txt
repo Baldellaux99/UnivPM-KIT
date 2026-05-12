@@ -1,0 +1,92 @@
+check symplectic ok
+% collect 300 frame errors or 100000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 0.001, 
+% Decoding option: Flooding BP
+% [[50,24]], 28 checks, 15 iter, ep0=0.1
+% FE 317, total dec. 379\\
+0.1 0.836412\\
+% FE 318, total dec. 420\\
+0.09 0.757143\\
+% FE 319, total dec. 480\\
+0.08 0.664583\\
+% FE 315, total dec. 540\\
+0.07 0.583333\\
+% FE 314, total dec. 618\\
+0.06 0.508091\\
+% FE 315, total dec. 769\\
+0.05 0.409623\\
+% FE 310, total dec. 1049\\
+0.04 0.29552\\
+% FE 309, total dec. 1718\\
+0.03 0.17986\\
+% FE 310, total dec. 3460\\
+0.02 0.0895954\\
+% FE 303, total dec. 12429\\
+0.01 0.0243785\\
+% FE 302, total dec. 15329\\
+0.009 0.0197012\\
+% FE 303, total dec. 17149\\
+0.008 0.0176687\\
+% FE 303, total dec. 23898\\
+0.007 0.0126789\\
+% FE 302, total dec. 28770\\
+0.006 0.010497\\
+% FE 301, total dec. 47642\\
+0.005 0.00631795\\
+% FE 301, total dec. 71506\\
+0.004 0.00420944\\
+% FE 303, total dec. 119707\\
+0.003 0.00253118\\
+% FE 301, total dec. 268438\\
+0.002 0.0011213\\
+% FE 301, total dec. 1.06025e+06\\
+0.001 0.000283895\\
+% FE 301, total dec. 1.08977e+06\\
+0.001 0.000276205\\
+
+jonathan@jonathan-ThinkBook-14-G4-IAP:~/Documents/Promotion_Projects/side_projects/QuantumCodes/CAMEL$ ./build/sim_FER 
+check symplectic ok
+% collect 300 frame errors or 100000000 decoded error patterns
+% depolarizing prob. list to be simulated: 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 0.001, 
+% Decoding option: CAMEL
+% [[50,24]], 28 checks, 15 iter, ep0=0.1
+% FE 317, total dec. 393\\
+0.1 0.806616\\
+% FE 318, total dec. 419\\
+0.09 0.75895\\
+% FE 315, total dec. 434\\
+0.08 0.725806\\
+% FE 317, total dec. 534\\
+0.07 0.593633\\
+% FE 314, total dec. 614\\
+0.06 0.511401\\
+% FE 309, total dec. 860\\
+0.05 0.359302\\
+% FE 308, total dec. 1064\\
+0.04 0.289474\\
+% FE 307, total dec. 1861\\
+0.03 0.164965\\
+% FE 304, total dec. 4167\\
+0.02 0.0729542\\
+% FE 302, total dec. 13917\\
+0.01 0.0217001\\
+% FE 302, total dec. 19472\\
+0.009 0.0155094\\
+% FE 303, total dec. 22238\\
+0.008 0.0136253\\
+% FE 302, total dec. 28213\\
+0.007 0.0107043\\
+% FE 301, total dec. 42928\\
+0.006 0.00701174\\
+% FE 303, total dec. 63537\\
+0.005 0.00476887\\
+% FE 301, total dec. 87793\\
+0.004 0.00342852\\
+% FE 301, total dec. 179556\\
+0.003 0.00167636\\
+% FE 301, total dec. 386362\\
+0.002 0.000779062\\
+% FE 302, total dec. 1.57215e+06\\
+0.001 0.000192093\\
+% FE 301, total dec. 1.54332e+06\\
+0.001 0.000195034\\
