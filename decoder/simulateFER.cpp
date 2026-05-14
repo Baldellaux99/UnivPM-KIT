@@ -7,12 +7,9 @@
 
 int main(int argc, char **argv)
 {
-    //    int n = 50;
-    //    int k = 12;
-    //    int m = 42; //[244,40]]
     //code parameters
-    int n = 128;
-    int k = 36;
+    int n = 73;
+    int k = 19;
     int m = 128;
 
     // decodingOpt: 0 for flooding BP, 1 for genie-aided BP, 2 for CAMEL
