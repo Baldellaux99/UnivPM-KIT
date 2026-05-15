@@ -1,0 +1,26 @@
+% Output directory: ./decoding_results/128_36/FloodingBP
+% Parameters saved to: ./decoding_results/128_36/FloodingBP/params.json
+% Results saved to: ./decoding_results/128_36/FloodingBP/results.csv
+% collect 300 frame errors or 100000000 decoded error patterns
+% epsilon mode: DecadeLinearRange
+% depolarizing prob. list to be simulated: 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 0.001, 
+% Decoding option: Flooding BP
+% [[128,36]], 128 checks, 15 iter, ep0=0.1
+% FE 353, total dec. 552, runtime 0.0235351 s\\
+0.10000000000000001 0.63949275362318836\\
+% FE 347, total dec. 636, runtime 0.0144609 s\\
+0.089999999999999997 0.54559748427672961\\
+% FE 347, total dec. 843, runtime 0.016177 s\\
+0.080000000000000002 0.41162514827995256\\
+% FE 340, total dec. 1093, runtime 0.0173975 s\\
+0.070000000000000007 0.31107044830741082\\
+% FE 327, total dec. 1917, runtime 0.0235211 s\\
+0.059999999999999998 0.1705790297339593\\
+% FE 313, total dec. 3298, runtime 0.0320767 s\\
+0.050000000000000003 0.094906003638568825\\
+% FE 308, total dec. 8455, runtime 0.0641178 s\\
+0.040000000000000001 0.036428149024246008\\
+% FE 303, total dec. 26086, runtime 0.162969 s\\
+0.029999999999999999 0.011615425898949629\\
+% FE 300, total dec. 133361, runtime 0.726972 s\\
+0.02 0.0022495332218564648\\
