@@ -20,7 +20,7 @@ fileReader::fileReader(unsigned n, unsigned k, unsigned m) {
 
 void fileReader::read_H() {
 
-    std::string filename = "./PCMs/" + std::to_string(N) + "_" + std::to_string(K)+ "/"
+    std::string filename = "./PCMsForPLmodel/" + std::to_string(N) + "_" + std::to_string(K)+ "/"
             +std::to_string(N) + "_" + std::to_string(K) +"_"+std::to_string(M)+"_H" + ".txt";
     // Nvk same shape and Nv, but its value k means the i-th VN being the k-th neigbor of j-th CN
     // Mck same shape and Nv, but its value k means the i-th CN being the k-th neigbor of j-th VN
@@ -121,7 +121,7 @@ void fileReader::read_H() {
     varVal = VariableValues;
 }
 void fileReader::read_G() {
-    std::string filename = "./PCMs/" + std::to_string(N) + "_" + std::to_string(K) + "/" +
+    std::string filename = "./PCMsForPLmodel/" + std::to_string(N) + "_" + std::to_string(K) + "/" +
                            std::to_string(N) + "_" + std::to_string(K) + "_G.txt";
     std::string line;
     std::ifstream matrix_file;
