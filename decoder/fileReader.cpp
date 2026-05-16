@@ -13,9 +13,10 @@ fileReader::fileReader(unsigned n, unsigned k, unsigned m) {
     K = k;
     M = m;
     G_rows = N + K;
-
+    std::vector<std::vector<unsigned>> Meta;
     read_H();
     read_G();
+    read_Meta();
 }
 
 void fileReader::read_H() {
@@ -142,6 +143,142 @@ void fileReader::read_G() {
         std::cout << "Unable to open file" << std::endl;
 }
 
+
+void fileReader::read_Meta()
+{
+    std::string filename =
+        "./PCMsForPLmodel/" + std::to_string(N) + "_" + std::to_string(K) + "/" +
+        std::to_string(N) + "_" + std::to_string(K) + "_Mcss_meta.txt";
+
+    std::ifstream matrix_file(filename);
+
+    if (!matrix_file.is_open())
+    {
+        throw std::runtime_error("read_Meta: unable to open file " + filename);
+    }
+
+    unsigned n_file = 0;  // number of columns
+    unsigned m_file = 0;  // number of rows
+
+    matrix_file >> n_file >> m_file;
+
+    // Mcss_meta acts on the full syndrome vector, so its number of columns
+    // must equal the number of stabilizer checks M.
+    if (n_file != M)
+    {
+        throw std::runtime_error(
+            "read_Meta: file-specified number of columns does not match M"
+        );
+    }
+
+    unsigned max_col_weight = 0;
+    unsigned max_row_weight = 0;
+
+    matrix_file >> max_col_weight >> max_row_weight;
+
+    std::vector<unsigned> col_weight(n_file, 0);
+    std::vector<unsigned> row_weight(m_file, 0);
+
+    for (unsigned j = 0; j < n_file; ++j)
+    {
+        matrix_file >> col_weight[j];
+    }
+
+    for (unsigned i = 0; i < m_file; ++i)
+    {
+        matrix_file >> row_weight[i];
+    }
+
+    // ------------------------------------------------------------
+    // Read column neighbor indices.
+    // We do not need them for dense Meta, but we must consume them.
+    // Indices in file are 1-based and padded with 0.
+    // ------------------------------------------------------------
+
+    for (unsigned j = 0; j < n_file; ++j)
+    {
+        for (unsigned t = 0; t < max_col_weight; ++t)
+        {
+            unsigned idx = 0;
+            matrix_file >> idx;
+        }
+    }
+
+    // ------------------------------------------------------------
+    // Read row neighbor indices.
+    // These are the syndrome-bit positions touched by each meta-check.
+    // ------------------------------------------------------------
+
+    std::vector<std::vector<unsigned>> row_indices(m_file);
+
+    for (unsigned i = 0; i < m_file; ++i)
+    {
+        row_indices[i].reserve(row_weight[i]);
+
+        for (unsigned t = 0; t < max_row_weight; ++t)
+        {
+            unsigned idx = 0;
+            matrix_file >> idx;
+
+            if (t < row_weight[i])
+            {
+                if (idx == 0 || idx > n_file)
+                {
+                    throw std::runtime_error("read_Meta: invalid row neighbor index");
+                }
+
+                row_indices[i].push_back(idx - 1);  // convert to 0-based
+            }
+        }
+    }
+
+    // ------------------------------------------------------------
+    // Read row neighbor values and build dense Meta.
+    // For Mcss_meta, values should be binary, usually all 1.
+    // ------------------------------------------------------------
+
+    Meta.clear();
+    Meta.assign(m_file, std::vector<unsigned>(n_file, 0));
+
+    for (unsigned i = 0; i < m_file; ++i)
+    {
+        for (unsigned t = 0; t < max_row_weight; ++t)
+        {
+            unsigned val = 0;
+            matrix_file >> val;
+
+            if (t < row_weight[i])
+            {
+                Meta[i][row_indices[i][t]] = val & 1U;
+            }
+        }
+    }
+
+    // ------------------------------------------------------------
+    // Read column neighbor values.
+    // We do not need them for dense Meta, but we must consume them.
+    // ------------------------------------------------------------
+
+    for (unsigned j = 0; j < n_file; ++j)
+    {
+        for (unsigned t = 0; t < max_col_weight; ++t)
+        {
+            unsigned val = 0;
+            matrix_file >> val;
+        }
+    }
+
+    if (!matrix_file.good() && !matrix_file.eof())
+    {
+        throw std::runtime_error("read_Meta: error while reading file");
+    }
+
+    matrix_file.close();
+
+    std::cout << "Read Meta from: " << filename << std::endl;
+    std::cout << "Meta shape: " << Meta.size() << " x "
+              << (Meta.empty() ? 0 : Meta[0].size()) << std::endl;
+}
 
 
 

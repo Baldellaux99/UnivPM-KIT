@@ -1,0 +1,27 @@
+% Output directory: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0
+% Parameters saved to: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0/params.json
+% Results saved to: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0/results.csv
+% collect 300 frame errors or 100000000 decoded error patterns
+% epsilon mode: DecadeLinearRange
+% depolarizing prob. list to be simulated: 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 
+% Decoding option: Flooding BP
+% Noise model: Phenomenological, p=0.000000
+% [[128,36]], 128 checks, 15 iter, ep0=0.1
+% FE 342, total dec. 666, runtime 0.0251613 s\\
+0.089999999999999997 0.51351351351351349\\
+% FE 344, total dec. 863, runtime 0.0177496 s\\
+0.080000000000000002 0.39860950173812282\\
+% FE 327, total dec. 1223, runtime 0.0187786 s\\
+0.070000000000000007 0.26737530662305803\\
+% FE 324, total dec. 1838, runtime 0.0236765 s\\
+0.059999999999999998 0.176278563656148\\
+% FE 323, total dec. 3770, runtime 0.0366046 s\\
+0.050000000000000003 0.085676392572944293\\
+% FE 309, total dec. 8429, runtime 0.0659873 s\\
+0.040000000000000001 0.03665915292442757\\
+% FE 303, total dec. 25462, runtime 0.164608 s\\
+0.029999999999999999 0.011900086403267614\\
+% FE 300, total dec. 124354, runtime 0.702106 s\\
+0.02 0.0024124676327259274\\
+% FE 300, total dec. 2302721, runtime 10.3146 s\\
+0.01 0.00013028065492953772\\

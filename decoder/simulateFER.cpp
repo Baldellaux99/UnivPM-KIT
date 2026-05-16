@@ -62,7 +62,7 @@ std::vector<double> make_decade_linear_epsilon_list(
     {
         double step = decade / 10.0;
 
-        for (int i = 10; i >= 1; --i)
+        for (int i = 9; i >= 1; --i)
         {
             double ep = i * step;
 
@@ -146,35 +146,40 @@ struct DecodeParams
     // 2: CAMEL
     int decoding_option = 0;
 
+    // 0: depolarzing
+    // 1: PL
+    int noise_model = 1;
+
     int number_guess = 1;
     int dec_iter_num = 15;
 
     double ep0 = 0.1;
+    double p = 0.1;
 
     std::uint64_t max_frame_errors = 300;
     std::uint64_t max_decoded_words = 100000000;
 
     std::uint64_t progress_interval = 10000000;
 
-    // Epsilon options.
-    //
-    // Choose one:
-    //
-    // EpsilonMode::FixedList
-    // EpsilonMode::LinearRange
-    // EpsilonMode::LogRange
     EpsilonMode epsilon_mode = EpsilonMode::DecadeLinearRange;
 
     double epsilon_max = 0.1;
     double epsilon_min = 0.001;
-    double epsilon_step = 0.01; // ignored for DecadeLinearRange
+    double epsilon_step = 0.01;
 
-    // Used only by FixedList
     std::vector<double> fixed_epsilons = {
         0.12, 0.11, 0.10, 0.09,
         0.08, 0.07, 0.06, 0.05,
         0.04, 0.03, 0.02, 0.01
     };
+
+    DecodeParams()
+    {
+        if (decoding_option == 0)
+        {
+            number_guess = 0;
+        }
+    }
 
     std::vector<double> epsilons() const
     {
@@ -219,6 +224,34 @@ std::string decoding_option_name(int option)
 }
 
 
+std::string noies_model_name(int model)
+{
+    switch (model)
+    {
+        case 0:
+            return "Depolarizing";
+        case 1:
+            return "Phenomenological";
+        default:
+            return "Unknown";
+    }
+}
+
+
+std::string noise_model_folder_name(int model)
+{
+    switch (model)
+    {
+        case 0:
+            return "Depolarizing";
+        case 1:
+            return "Phenomenological";
+        default:
+            return "UnknownNoise";
+    }
+}
+
+
 std::string decoding_option_folder_name(int option)
 {
     switch (option)
@@ -235,12 +268,28 @@ std::string decoding_option_folder_name(int option)
 }
 
 
+std::string result_folder_name(int option, int model)
+{
+    return noise_model_folder_name(model) + "_" + decoding_option_folder_name(option);
+}
+std::string p_folder_name(double p)
+{
+    std::ostringstream ss;
+    ss << "p=" << std::setprecision(4) << p;
+    return ss.str();
+}
+
 fs::path make_output_dir(const DecodeParams &params)
 {
     fs::path output_dir =
         fs::path("./decoding_results") /
         (std::to_string(params.n) + "_" + std::to_string(params.k)) /
-        decoding_option_folder_name(params.decoding_option);
+        result_folder_name(params.decoding_option, params.noise_model);
+
+    if (params.noise_model != 0)
+    {
+        output_dir /= p_folder_name(params.p);
+    }
 
     fs::create_directories(output_dir);
 
@@ -274,6 +323,7 @@ void write_params_json(const DecodeParams &params, const fs::path &path)
 
     file << "  \"decoding_option\": " << params.decoding_option << ",\n";
     file << "  \"decoding_option_name\": \"" << decoding_option_name(params.decoding_option) << "\",\n";
+    file << "  \"noise_model\": \"" <<noise_model_folder_name(params.noise_model) << "\",\n";
 
     file << "  \"number_guess\": " << params.number_guess << ",\n";
     file << "  \"dec_iter_num\": " << params.dec_iter_num << ",\n";
@@ -375,7 +425,8 @@ DecodeResult run_single_epsilon(
             const bool success = code.decode(
                 params.dec_iter_num,
                 params.ep0,
-                params.number_guess
+                params.number_guess,
+                params.p
             );
 
 #pragma omp critical(simulation_counters)
@@ -472,6 +523,11 @@ int main()
     }
 
     log_line(log_file, "% Decoding option: " + decoding_option_name(params.decoding_option));
+    log_line(
+     log_file,
+     "% Noise model: " + noies_model_name(params.noise_model) +
+     ", p=" + std::to_string(params.p)
+    );
 
     {
         std::ostringstream msg;

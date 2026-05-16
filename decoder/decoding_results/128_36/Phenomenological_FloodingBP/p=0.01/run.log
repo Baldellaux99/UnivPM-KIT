@@ -1,0 +1,46 @@
+% Output directory: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0.01
+% Parameters saved to: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0.01/params.json
+% Results saved to: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0.01/results.csv
+% collect 300 frame errors or 100000000 decoded error patterns
+% epsilon mode: DecadeLinearRange
+% depolarizing prob. list to be simulated: 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 
+% Decoding option: Flooding BP
+% Noise model: Phenomenological, p=0.010000
+% [[128,36]], 128 checks, 15 iter, ep0=0.1
+% FE 351, total dec. 673, runtime 0.0245081 s\\
+0.089999999999999997 0.52154531946508176\\
+% FE 337, total dec. 821, runtime 0.0161727 s\\
+0.080000000000000002 0.41047503045066991\\
+% FE 330, total dec. 1158, runtime 0.0185871 s\\
+0.070000000000000007 0.28497409326424872\\
+% FE 314, total dec. 1863, runtime 0.0235973 s\\
+0.059999999999999998 0.16854535695115405\\
+% FE 322, total dec. 3583, runtime 0.0354455 s\\
+0.050000000000000003 0.08986882500697739\\
+% FE 307, total dec. 7543, runtime 0.0592399 s\\
+0.040000000000000001 0.040699986742675331\\
+% FE 309, total dec. 25822, runtime 0.168098 s\\
+0.029999999999999999 0.01196654015955387\\
+% FE 303, total dec. 115501, runtime 0.655792 s\\
+0.02 0.0026233539103557545\\
+% FE 300, total dec. 1041011, runtime 4.67938 s\\
+0.01 0.00028818139289594444\\
+% FE 300, total dec. 1232008, runtime 5.31709 s\\
+0.0090000000000000011 0.00024350491230576424\\
+% FE 300, total dec. 1629495, runtime 6.67894 s\\
+0.0080000000000000002 0.0001841061187668572\\
+% FE 300, total dec. 1984986, runtime 7.66881 s\\
+0.0070000000000000001 0.00015113456719593991\\
+% FE 301, total dec. 2055700, runtime 7.41697 s\\
+0.0060000000000000001 0.00014642214330884857\\
+% FE 300, total dec. 2468078, runtime 8.19111 s\\
+0.0050000000000000001 0.00012155207412407549\\
+% FE 300, total dec. 3634573, runtime 10.87 s\\
+0.0040000000000000001 8.2540645077152115e-05\\
+% FE 300, total dec. 4252747, runtime 11.1839 s\\
+0.0030000000000000001 7.0542639851371366e-05\\
+% FE 300, total dec. 4877181, runtime 10.8833 s\\
+0.002 6.1510942489114096e-05\\
+% FE 300, total dec. 6986742, runtime 12.4366 s\\
+0.001 4.2938468316133616e-05\\
+% Done.

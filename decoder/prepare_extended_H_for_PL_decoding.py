@@ -725,6 +725,135 @@ def write_pl_model_readme(save_data, HX_data, HZ_data, base_dir="./PCMsForPLmode
 
     return readme_path
 
+
+def build_meta_matrix_from_R(R):
+    """
+    Given R such that
+
+        H2 = R @ H1,
+
+    build the meta-check matrix
+
+        M_meta = [R | I]
+
+    so that
+
+        M_meta @ [H1; H2] = 0.
+
+    If H has shape m x n and rank r, then:
+        R has shape (m-r) x r
+        M_meta has shape (m-r) x m
+    """
+    R = as_gf2_matrix(R)
+
+    num_dependent, rank = R.shape
+    I = GF2.Identity(num_dependent)
+
+    M_meta = GF2(np.hstack([R, I]))
+
+    return M_meta
+
+
+def build_css_meta_matrix(Mx, Mz):
+    """
+    Build the block-diagonal CSS meta-check matrix
+
+        M_CSS = [ Mx  0  ]
+                [ 0   Mz ]
+
+    This acts on the full quaternary syndrome vector
+
+        z = [z_X]
+            [z_Z]
+
+    where z_X is the syndrome from H_X rows and z_Z is the syndrome from H_Z rows.
+    """
+    Mx = as_gf2_matrix(Mx)
+    Mz = as_gf2_matrix(Mz)
+
+    rx, mx = Mx.shape
+    rz, mz = Mz.shape
+
+    top = np.hstack([
+        to_numpy_uint8(Mx),
+        np.zeros((rx, mz), dtype=np.uint8),
+    ])
+
+    bottom = np.hstack([
+        np.zeros((rz, mx), dtype=np.uint8),
+        to_numpy_uint8(Mz),
+    ])
+
+    M_css = GF2(np.vstack([top, bottom]))
+
+    return M_css
+
+
+def verify_meta_matrix(M_meta, H):
+    """
+    Verify that
+
+        M_meta @ H = 0
+
+    over GF(2).
+    """
+    M_meta = as_gf2_matrix(M_meta)
+    H = as_gf2_matrix(H)
+
+    prod = M_meta @ H
+
+    if not np.all(prod == 0):
+        raise RuntimeError("Meta-check verification failed: M_meta @ H != 0.")
+
+    return True
+
+
+def save_meta_matrices_for_pl_model(Mx, Mz, M_css, n, k, base_dir="./PCMsForPLmodel"):
+    """
+    Save syndrome meta-check matrices in alist-with-values format.
+
+    Files:
+        n_k_Mx_meta.txt
+        n_k_Mz_meta.txt
+        n_k_Mcss_meta.txt
+
+    Mx acts on H_X syndrome bits.
+    Mz acts on H_Z syndrome bits.
+    M_css acts on the full syndrome vector [z_X; z_Z].
+    """
+    Mx = to_numpy_uint8(Mx) % 2
+    Mz = to_numpy_uint8(Mz) % 2
+    M_css = to_numpy_uint8(M_css) % 2
+
+    
+    output_dir = Path(base_dir) / f"{n}_{k}"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    Mx_path = output_dir / f"{n}_{k}_Mx_meta.txt"
+    Mz_path = output_dir / f"{n}_{k}_Mz_meta.txt"
+    Mcss_path = output_dir / f"{n}_{k}_Mcss_meta.txt"
+
+    write_nonbinary_alist(Mx, Mx_path)
+    write_nonbinary_alist(Mz, Mz_path)
+    write_nonbinary_alist(M_css, Mcss_path)
+
+    print("Saved Mx_meta to:", Mx_path)
+    print("Saved Mz_meta to:", Mz_path)
+    print("Saved Mcss_meta to:", Mcss_path)
+
+    print("Mx_meta shape:", Mx.shape)
+    print("Mz_meta shape:", Mz.shape)
+    print("Mcss_meta shape:", M_css.shape)
+
+    return {
+        "Mx_meta_path": Mx_path,
+        "Mz_meta_path": Mz_path,
+        "Mcss_meta_path": Mcss_path,
+        "Mx_meta": Mx,
+        "Mz_meta": Mz,
+        "Mcss_meta": M_css,
+    }
+
 if __name__ == "__main__":
     HX_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_X.csv"
     HZ_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_Z.csv"
@@ -756,6 +885,39 @@ if __name__ == "__main__":
     save_R_data = save_R_matrices_for_pl_model(
         Rx=Rx,
         Rz=Rz,
+        n=save_data["n"],
+        k=save_data["k"],
+        base_dir="./PCMsForPLmodel",
+    )
+
+    # ------------------------------------------------------------
+    # Build DLR-style syndrome meta-check matrices
+    # ------------------------------------------------------------
+
+    Mx_meta = build_meta_matrix_from_R(Rx)
+    Mz_meta = build_meta_matrix_from_R(Rz)
+
+    # Verify:
+    #   Mx_meta @ H_X_perm = 0
+    #   Mz_meta @ H_Z_perm = 0
+    verify_meta_matrix(Mx_meta, Hx)
+    verify_meta_matrix(Mz_meta, Hz)
+
+    Mcss_meta = build_css_meta_matrix(Mx_meta, Mz_meta)
+
+    # Verify full CSS meta-check matrix against binary support of H_quat.
+    # Since H_quat = [Hx; 2Hz], its binary support is [Hx; Hz].
+    H_css_binary = GF2(np.vstack([
+        to_numpy_uint8(Hx) % 2,
+        to_numpy_uint8(Hz) % 2,
+    ]))
+
+    verify_meta_matrix(Mcss_meta, H_css_binary)
+
+    save_meta_data = save_meta_matrices_for_pl_model(
+        Mx=Mx_meta,
+        Mz=Mz_meta,
+        M_css=Mcss_meta,
         n=save_data["n"],
         k=save_data["k"],
         base_dir="./PCMsForPLmodel",

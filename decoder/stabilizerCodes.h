@@ -16,18 +16,38 @@
 #include <string_view>
 #include <vector>
 #include <chrono>
+#include <cmath>
 
 class stabilizerCodes {
   public:
     stabilizerCodes(unsigned n, unsigned k, unsigned m,  const fileReader &fr);
 
-    bool decode(unsigned int L, double epsilon,  int number_guess=1);
+    bool decode(unsigned int L, double epsilon,  int number_guess=1, double p = 0);
     bool binary_decode(unsigned int L, double epsilon, bool decimation = false);
 
 
     bool flooding_decode(unsigned int L, double epsilon);
+    bool flooding_decode_joint(
+    unsigned int L,
+    double epsilon,
+    double syndrome_p,
+    const std::vector<std::vector<unsigned>> &Meta
+    );
+
     bool genie_aided_BP(unsigned int L, double epsilon, int number_guess=1);
     std::vector<unsigned> flooding_decode_with_decimation(unsigned int L, double epsilon, std::vector<unsigned>&  error_last_bits, int number_guess=1);
+
+    void flooding_decode_iteration(
+    unsigned int decIter,
+    double L0,
+    std::vector<std::vector<double>> &mc2v,
+    std::vector<std::vector<double>> &mv2c,
+    std::vector<double> &Taux,
+    std::vector<double> &Tauy,
+    std::vector<double> &Tauz,
+    std::vector<double> &phi_msg
+    );
+
 
     bool multi_path_decoding(unsigned int L, double epsilon, int number_guess=1);
 
@@ -42,14 +62,14 @@ class stabilizerCodes {
     void add_one_type_of_error_given_epsilon(int error_type, double epsilon);
     void add_error_given_weight(unsigned w);
 
+    void add_syndrome_error_given_p(double p);
+
     // void add_error_given_positions(int pos[], int error[], int size);
 
     void calculate_syndrome(); // also check if the error is all 0, if true, not decoding needed
 
     static double quantize_belief(double Taux, double Tauy, double Tauz);
-    unsigned long hist_vn_msg[100][601];
-    unsigned long hist_cn_msg[100][601];
-    bool record_histogram = false;
+
     unsigned error_weight;
     unsigned max_iter;
     bool print_msg = false;
@@ -66,6 +86,9 @@ class stabilizerCodes {
     std::vector<unsigned> error_hat;
     std::vector<unsigned> syn;
     std::vector<std::string> errorString;
+
+    std::vector<unsigned> syndrome_error;
+    std::vector<unsigned> correct_syndrome;
     unsigned maxDc;
     unsigned maxDv;
     std::vector<unsigned> dv;
@@ -79,8 +102,23 @@ class stabilizerCodes {
     std::vector<std::vector<unsigned>> Mck;
 
     std::vector<std::vector<unsigned>> G;
+    std::vector<std::vector<unsigned>> Meta;
 
     int DecodingOption;
+    int noise_model;
 
+    static inline double clamp_msg(double x, double limit = 29.9)
+    {
+        if (x > limit) return limit;
+        if (x < -limit) return -limit;
+        return x;
+    }
+
+    static inline double binary_llr(double p)
+    {//p: syndrome error rate, should hold p<0.5
+        if (p <= 0.0) return 29.9;
+        if (p >= 0.5) return 0.0;
+        return std::log((1.0 - p) / p);
+    }
 };
 #endif // BPDECODING_STABILIZIERCODES_H

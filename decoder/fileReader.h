@@ -16,6 +16,7 @@ class fileReader {
     fileReader(unsigned n, unsigned k, unsigned m);
     void read_H();
     void read_G();
+    void read_Meta();
 
     bool check_symplectic();
     static inline bool trace_inner_product(unsigned a, unsigned b);
@@ -37,6 +38,7 @@ class fileReader {
     std::vector<std::vector<unsigned>> Mck;
 
     std::vector<std::vector<unsigned>> G;
+    std::vector<std::vector<unsigned>> Meta;
 
     std::vector<std::vector<std::vector<double>>> weights_cn;
     std::vector<std::vector<std::vector<double>>> weights_vn;

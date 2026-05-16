@@ -1,0 +1,69 @@
+% Output directory: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0.001
+% Parameters saved to: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0.001/params.json
+% Results saved to: ./decoding_results/128_36/Phenomenological_FloodingBP/p=0.001/results.csv
+% collect 300 frame errors or 100000000 decoded error patterns
+% epsilon mode: DecadeLinearRange
+% depolarizing prob. list to be simulated: 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 
+% Decoding option: Flooding BP
+% Noise model: Phenomenological, p=0.001000
+% [[128,36]], 128 checks, 15 iter, ep0=0.1
+% FE 347, total dec. 656, runtime 0.0249112 s\\
+0.089999999999999997 0.52896341463414631\\
+% FE 342, total dec. 880, runtime 0.0167961 s\\
+0.080000000000000002 0.38863636363636361\\
+% FE 332, total dec. 1215, runtime 0.0188541 s\\
+0.070000000000000007 0.27325102880658436\\
+% FE 322, total dec. 1828, runtime 0.0232563 s\\
+0.059999999999999998 0.17614879649890591\\
+% FE 313, total dec. 3712, runtime 0.0357888 s\\
+0.050000000000000003 0.084321120689655166\\
+% FE 308, total dec. 7889, runtime 0.0624632 s\\
+0.040000000000000001 0.039041703637976932\\
+% FE 303, total dec. 25171, runtime 0.163445 s\\
+0.029999999999999999 0.012037662389257478\\
+% FE 301, total dec. 117789, runtime 0.665415 s\\
+0.02 0.002555416889522791\\
+% FE 300, total dec. 1946755, runtime 8.73442 s\\
+0.01 0.0001541025963719112\\
+% FE 300, total dec. 2749629, runtime 11.8209 s\\
+0.0090000000000000011 0.00010910562843205392\\
+% FE 300, total dec. 4361295, runtime 17.8322 s\\
+0.0080000000000000002 6.8786908475578932e-05\\
+% FE 300, total dec. 6714099, runtime 25.899 s\\
+0.0070000000000000001 4.4682093606305179e-05\\
+% FE 300, total dec. 9710443, runtime 34.9641 s\\
+0.0060000000000000001 3.089457401685999e-05\\
+% epsilon=0.005, FE 191, total dec. 10000000\\
+% FE 300, total dec. 15273892, runtime 50.5989 s\\
+0.0050000000000000001 1.9641359255388215e-05\\
+% epsilon=0.004, FE 118, total dec. 10000000\\
+% epsilon=0.004, FE 243, total dec. 20000000\\
+% FE 300, total dec. 24228659, runtime 72.3744 s\\
+0.0040000000000000001 1.2382030718249822e-05\\
+% epsilon=0.003, FE 66, total dec. 10000000\\
+% epsilon=0.003, FE 159, total dec. 20000000\\
+% epsilon=0.003, FE 243, total dec. 30000000\\
+% FE 300, total dec. 38863127, runtime 101.934 s\\
+0.0030000000000000001 7.7193994194033849e-06\\
+% epsilon=0.002, FE 42, total dec. 10000000\\
+% epsilon=0.002, FE 87, total dec. 20000000\\
+% epsilon=0.002, FE 127, total dec. 30000000\\
+% epsilon=0.002, FE 160, total dec. 40000000\\
+% epsilon=0.002, FE 207, total dec. 50000000\\
+% epsilon=0.002, FE 240, total dec. 60000000\\
+% epsilon=0.002, FE 296, total dec. 70000000\\
+% FE 300, total dec. 70614658, runtime 157.217 s\\
+0.002 4.2484097281898611e-06\\
+% epsilon=0.001, FE 32, total dec. 10000000\\
+% epsilon=0.001, FE 57, total dec. 20000000\\
+% epsilon=0.001, FE 75, total dec. 30000000\\
+% epsilon=0.001, FE 101, total dec. 40000000\\
+% epsilon=0.001, FE 123, total dec. 50000000\\
+% epsilon=0.001, FE 152, total dec. 60000000\\
+% epsilon=0.001, FE 180, total dec. 70000000\\
+% epsilon=0.001, FE 202, total dec. 80000000\\
+% epsilon=0.001, FE 227, total dec. 90000000\\
+% epsilon=0.001, FE 251, total dec. 100000000\\
+% FE 251, total dec. 100000000, runtime 177.607 s\\
+0.001 2.5100000000000001e-06\\
+% Done.
