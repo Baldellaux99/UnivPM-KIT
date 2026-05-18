@@ -137,9 +137,9 @@ std::vector<double> make_epsilon_list(
 struct DecodeParams
 {
     // Code parameters
-    int n = 128;
-    int k = 36;
-    int m = 128;
+    int n = 64;
+    int k = 18;
+    int m = 64;
 
     // 0: flooding BP
     // 1: genie-aided BP
@@ -160,6 +160,7 @@ struct DecodeParams
     std::uint64_t max_decoded_words = 100000000;
 
     std::uint64_t progress_interval = 10000000;
+    double early_stop_fer = 2e-6;
 
     EpsilonMode epsilon_mode = EpsilonMode::DecadeLinearRange;
 
@@ -333,6 +334,7 @@ void write_params_json(const DecodeParams &params, const fs::path &path)
     file << "  \"max_decoded_words\": " << params.max_decoded_words << ",\n";
     file << "  \"progress_interval\": " << params.progress_interval << ",\n";
     file << "  \"omp_max_threads\": " << omp_get_max_threads() << ",\n";
+    file << "  \"early_stop_fer\": " << params.early_stop_fer << ",\n";
 
     file << "  \"epsilon_mode\": \"" << epsilon_mode_name(params.epsilon_mode) << "\",\n";
     file << "  \"epsilon_max\": " << params.epsilon_max << ",\n";
@@ -477,99 +479,133 @@ DecodeResult run_single_epsilon(
 
 int main()
 {
-    DecodeParams params;
+    DecodeParams base_params;
 
-    const std::vector<double> epsilon_list = params.epsilons();
+    const std::vector<double> p_values = {
+        0.0,
+        0.1,
+        0.01,
+        0.001
+    };
 
-    const fs::path output_dir = make_output_dir(params);
-    const fs::path params_path = output_dir / "params.json";
-    const fs::path results_path = output_dir / "results.csv";
-    const fs::path log_path = output_dir / "run.log";
-
-    std::ofstream log_file(log_path);
-
-    write_params_json(params, params_path);
-    initialize_results_csv(results_path);
-
-    fileReader matrix_supplier(params.n, params.k, params.m);
+    fileReader matrix_supplier(base_params.n, base_params.k, base_params.m);
     matrix_supplier.check_symplectic();
 
-    log_line(log_file, "% Output directory: " + output_dir.string());
-    log_line(log_file, "% Parameters saved to: " + params_path.string());
-    log_line(log_file, "% Results saved to: " + results_path.string());
-
+    for (double p_value : p_values)
     {
-        std::ostringstream msg;
-        msg << "% collect " << params.max_frame_errors
-            << " frame errors or " << params.max_decoded_words
-            << " decoded error patterns";
-        log_line(log_file, msg.str());
-    }
+        DecodeParams params = base_params;
+        params.p = p_value;
 
-    {
-        std::ostringstream msg;
-        msg << "% epsilon mode: " << epsilon_mode_name(params.epsilon_mode);
-        log_line(log_file, msg.str());
-    }
+        const std::vector<double> epsilon_list = params.epsilons();
 
-    {
-        std::ostringstream msg;
-        msg << "% depolarizing prob. list to be simulated: ";
-        for (double ep : epsilon_list)
+        const fs::path output_dir = make_output_dir(params);
+        const fs::path params_path = output_dir / "params.json";
+        const fs::path results_path = output_dir / "resultsP0_1.csv";
+        const fs::path log_path = output_dir / "run.log";
+
+        std::ofstream log_file(log_path);
+
+        write_params_json(params, params_path);
+        initialize_results_csv(results_path);
+
+        log_line(log_file, "% ============================================================");
+        log_line(log_file, "% Starting simulation for p=" + std::to_string(params.p));
+        log_line(log_file, "% ============================================================");
+
+        log_line(log_file, "% Output directory: " + output_dir.string());
+        log_line(log_file, "% Parameters saved to: " + params_path.string());
+        log_line(log_file, "% Results saved to: " + results_path.string());
+
         {
-            msg << ep << ", ";
+            std::ostringstream msg;
+            msg << "% collect " << params.max_frame_errors
+                << " frame errors or " << params.max_decoded_words
+                << " decoded error patterns";
+            log_line(log_file, msg.str());
         }
-        log_line(log_file, msg.str());
-    }
 
-    log_line(log_file, "% Decoding option: " + decoding_option_name(params.decoding_option));
-    log_line(
-     log_file,
-     "% Noise model: " + noies_model_name(params.noise_model) +
-     ", p=" + std::to_string(params.p)
-    );
+        {
+            std::ostringstream msg;
+            msg << "% epsilon mode: " << epsilon_mode_name(params.epsilon_mode);
+            log_line(log_file, msg.str());
+        }
 
-    {
-        std::ostringstream msg;
-        msg << "% [[" << params.n << "," << params.k << "]], "
-            << params.m << " checks, "
-            << params.dec_iter_num << " iter, "
-            << "ep0=" << params.ep0;
-        log_line(log_file, msg.str());
-    }
+        {
+            std::ostringstream msg;
+            msg << "% depolarizing prob. list to be simulated: ";
+            for (double ep : epsilon_list)
+            {
+                msg << ep << ", ";
+            }
+            log_line(log_file, msg.str());
+        }
 
-    for (double epsilon : epsilon_list)
-    {
-        DecodeResult result = run_single_epsilon(
-            epsilon,
-            params,
-            matrix_supplier,
-            log_file
+        log_line(log_file, "% Decoding option: " + decoding_option_name(params.decoding_option));
+
+        log_line(
+            log_file,
+            "% Noise model: " + noies_model_name(params.noise_model) +
+            ", p=" + std::to_string(params.p)
         );
 
-        append_result_csv(result, results_path);
-
         {
             std::ostringstream msg;
-            msg << "% FE " << result.frame_errors
-                << ", total dec. " << result.decoded_words
-                << ", runtime " << result.runtime_seconds
-                << " s"
-                << "\\\\";
+            msg << "% [[" << params.n << "," << params.k << "]], "
+                << params.m << " checks, "
+                << params.dec_iter_num << " iter, "
+                << "ep0=" << params.ep0;
             log_line(log_file, msg.str());
         }
 
+        for (double epsilon : epsilon_list)
         {
-            std::ostringstream msg;
-            msg << std::setprecision(17)
-                << result.epsilon << " "
-                << result.frame_error_rate
-                << "\\\\";
-            log_line(log_file, msg.str());
+            DecodeResult result = run_single_epsilon(
+                epsilon,
+                params,
+                matrix_supplier,
+                log_file
+            );
+
+            append_result_csv(result, results_path);
+
+            {
+                std::ostringstream msg;
+                msg << "% p=" << params.p
+                    << ", epsilon=" << epsilon
+                    << ", FE " << result.frame_errors
+                    << ", total dec. " << result.decoded_words
+                    << ", FER " << result.frame_error_rate
+                    << ", runtime " << result.runtime_seconds
+                    << " s"
+                    << "\\\\";
+                log_line(log_file, msg.str());
+            }
+
+            {
+                std::ostringstream msg;
+                msg << std::setprecision(17)
+                    << result.epsilon << " "
+                    << result.frame_error_rate
+                    << "\\\\";
+                log_line(log_file, msg.str());
+            }
+
+            if (result.frame_error_rate < params.early_stop_fer)
+            {
+                std::ostringstream msg;
+                msg << "% Early stopping for p=" << params.p
+                    << " because last FER=" << result.frame_error_rate
+                    << " < " << params.early_stop_fer;
+                log_line(log_file, msg.str());
+
+                break;
+            }
         }
+
+        log_line(log_file, "% Done with p=" + std::to_string(params.p));
     }
 
-    log_line(log_file, "% Done.");
+    std::cout << "% All p simulations done." << std::endl;
 
     return 0;
 }

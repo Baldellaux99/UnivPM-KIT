@@ -855,8 +855,12 @@ def save_meta_matrices_for_pl_model(Mx, Mz, M_css, n, k, base_dir="./PCMsForPLmo
     }
 
 if __name__ == "__main__":
-    HX_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_X.csv"
-    HZ_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_Z.csv"
+    # HX_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_X.csv"
+    # HZ_PATH = r"../PCMs/QD-LDPC CSS [[128,36,8]]/QD[[128,36,8]]_H_Z.csv"
+
+    HX_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_X.csv"
+    HZ_PATH = r"../PCMs/QD-LDPC CSS code [[64,18,8]]/QD[[64,18,8]]_H_Z.csv"
+
 
     HX_data = analyze_pcm(HX_PATH, name="H_X")
     HZ_data = analyze_pcm(HZ_PATH, name="H_Z")

@@ -1,0 +1,90 @@
+% ============================================================
+% Starting simulation for p=0.001000
+% ============================================================
+% Output directory: ./decoding_results/64_18/Phenomenological_FloodingBP/p=0.001
+% Parameters saved to: ./decoding_results/64_18/Phenomenological_FloodingBP/p=0.001/params.json
+% Results saved to: ./decoding_results/64_18/Phenomenological_FloodingBP/p=0.001/results.csv
+% collect 300 frame errors or 100000000 decoded error patterns
+% epsilon mode: DecadeLinearRange
+% depolarizing prob. list to be simulated: 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 
+% Decoding option: Flooding BP
+% Noise model: Phenomenological, p=0.001000
+% [[64,18]], 64 checks, 15 iter, ep0=0.1
+% p=0.001, epsilon=0.09, FE 342, total dec. 1055, FER 0.324171, runtime 0.0135045 s\\
+0.089999999999999997 0.32417061611374409\\
+% p=0.001, epsilon=0.08, FE 329, total dec. 1575, FER 0.208889, runtime 0.0114358 s\\
+0.080000000000000002 0.2088888888888889\\
+% p=0.001, epsilon=0.07, FE 322, total dec. 2189, FER 0.147099, runtime 0.0133735 s\\
+0.070000000000000007 0.14709913202375513\\
+% p=0.001, epsilon=0.06, FE 314, total dec. 3528, FER 0.0890023, runtime 0.0177694 s\\
+0.059999999999999998 0.089002267573696142\\
+% p=0.001, epsilon=0.05, FE 319, total dec. 7839, FER 0.040694, runtime 0.0308905 s\\
+0.050000000000000003 0.040693966067100393\\
+% p=0.001, epsilon=0.04, FE 303, total dec. 17355, FER 0.0174589, runtime 0.0570964 s\\
+0.040000000000000001 0.017458945548833191\\
+% p=0.001, epsilon=0.03, FE 300, total dec. 51935, FER 0.00577645, runtime 0.1426 s\\
+0.029999999999999999 0.0057764513333975163\\
+% p=0.001, epsilon=0.02, FE 300, total dec. 259560, FER 0.0011558, runtime 0.585544 s\\
+0.02 0.0011558021266759131\\
+% p=0.001, epsilon=0.01, FE 300, total dec. 3845797, FER 7.80072e-05, runtime 6.2947 s\\
+0.01 7.8007237511496311e-05\\
+% p=0.001, epsilon=0.009, FE 300, total dec. 5969138, FER 5.02585e-05, runtime 9.32118 s\\
+0.0090000000000000011 5.0258513038230983e-05\\
+% p=0.001, epsilon=0.008, FE 300, total dec. 9245228, FER 3.24492e-05, runtime 13.7291 s\\
+0.0080000000000000002 3.2449172697525687e-05\\
+% epsilon=0.007, FE 206, total dec. 10000000\\
+% p=0.001, epsilon=0.007, FE 300, total dec. 14401636, FER 2.0831e-05, runtime 20.2891 s\\
+0.0070000000000000001 2.0830966704060567e-05\\
+% epsilon=0.006, FE 109, total dec. 10000000\\
+% epsilon=0.006, FE 240, total dec. 20000000\\
+% p=0.001, epsilon=0.006, FE 300, total dec. 24157328, FER 1.24186e-05, runtime 32.2348 s\\
+0.0060000000000000001 1.241859198997505e-05\\
+% epsilon=0.005, FE 61, total dec. 10000000\\
+% epsilon=0.005, FE 140, total dec. 20000000\\
+% epsilon=0.005, FE 228, total dec. 30000000\\
+% p=0.001, epsilon=0.005, FE 300, total dec. 38176808, FER 7.85817e-06, runtime 48.098 s\\
+0.0050000000000000001 7.8581739992510629e-06\\
+% epsilon=0.004, FE 42, total dec. 10000000\\
+% epsilon=0.004, FE 96, total dec. 20000000\\
+% epsilon=0.004, FE 142, total dec. 30000000\\
+% epsilon=0.004, FE 188, total dec. 40000000\\
+% epsilon=0.004, FE 231, total dec. 50000000\\
+% epsilon=0.004, FE 271, total dec. 60000000\\
+% p=0.001, epsilon=0.004, FE 300, total dec. 66135521, FER 4.53614e-06, runtime 78.722 s\\
+0.0040000000000000001 4.5361402687067359e-06\\
+% epsilon=0.003, FE 32, total dec. 10000000\\
+% epsilon=0.003, FE 63, total dec. 20000000\\
+% epsilon=0.003, FE 109, total dec. 30000000\\
+% epsilon=0.003, FE 144, total dec. 40000000\\
+% epsilon=0.003, FE 177, total dec. 50000000\\
+% epsilon=0.003, FE 214, total dec. 60000000\\
+% epsilon=0.003, FE 246, total dec. 70000000\\
+% epsilon=0.003, FE 277, total dec. 80000000\\
+% p=0.001, epsilon=0.003, FE 300, total dec. 85436479, FER 3.51138e-06, runtime 98.1157 s\\
+0.0030000000000000001 3.5113806597764872e-06\\
+% epsilon=0.002, FE 18, total dec. 10000000\\
+% epsilon=0.002, FE 35, total dec. 20000000\\
+% epsilon=0.002, FE 55, total dec. 30000000\\
+% epsilon=0.002, FE 73, total dec. 40000000\\
+% epsilon=0.002, FE 95, total dec. 50000000\\
+% epsilon=0.002, FE 120, total dec. 60000000\\
+% epsilon=0.002, FE 142, total dec. 70000000\\
+% epsilon=0.002, FE 166, total dec. 80000000\\
+% epsilon=0.002, FE 180, total dec. 90000000\\
+% epsilon=0.002, FE 202, total dec. 100000000\\
+% p=0.001, epsilon=0.002, FE 202, total dec. 100000000, FER 2.02e-06, runtime 113.548 s\\
+0.002 2.0200000000000001e-06\\
+% epsilon=0.001, FE 21, total dec. 10000000\\
+% epsilon=0.001, FE 33, total dec. 20000000\\
+% epsilon=0.001, FE 46, total dec. 30000000\\
+% epsilon=0.001, FE 57, total dec. 40000000\\
+% epsilon=0.001, FE 71, total dec. 50000000\\
+% epsilon=0.001, FE 86, total dec. 60000000\\
+% epsilon=0.001, FE 102, total dec. 70000000\\
+% epsilon=0.001, FE 113, total dec. 80000000\\
+% epsilon=0.001, FE 123, total dec. 90000000\\
+% epsilon=0.001, FE 136, total dec. 100000000\\
+% p=0.001, epsilon=0.001, FE 136, total dec. 100000000, FER 1.36e-06, runtime 111.4 s\\
+0.001 1.3599999999999999e-06\\
+% Early stopping for p=0.001 because last FER=1.36e-06 < 2e-06
+% Done with p=0.001000
